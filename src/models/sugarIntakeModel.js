@@ -146,27 +146,19 @@ class SugarIntakeModel {
 
         if (percentage <= 50) {
             return {
-                status: 'excellent',
-                message: 'Asupan gula Anda sangat baik',
-                color: 'green'
+                status: 'excellent'
             };
         } else if (percentage <= 80) {
             return {
-                status: 'good',
-                message: 'Asupan gula Anda dalam batas normal',
-                color: 'blue'
+                status: 'good'
             };
         } else if (percentage <= 100) {
             return {
-                status: 'warning',
-                message: 'Asupan gula Anda mendekati batas harian',
-                color: 'yellow'
+                status: 'warning'
             };
         } else {
             return {
-                status: 'danger',
-                message: 'Asupan gula Anda melebihi batas harian',
-                color: 'red'
+                status: 'danger'
             };
         }
     }
