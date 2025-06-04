@@ -1,37 +1,50 @@
 const db = require('../config/db');
 
 const DailyMission = {
-  // Get all daily missions
-  getAll: () => {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM daily_missions WHERE is_active = 1`;
-      db.query(sql, (err, results) => {
-        if (err) reject(err);
-        else resolve(results);
-      });
-    });
+  // Get all active daily missions
+  getAll: async () => {
+    console.log(`[${new Date().toISOString()}] INFO: DailyMission.getAll - Fetching all active daily missions.`);
+    const sql = `SELECT * FROM daily_missions WHERE is_active = 1`;
+    try {
+      const [results] = await db.execute(sql);
+      console.log(`[${new Date().toISOString()}] INFO: DailyMission.getAll - Successfully fetched ${results.length} missions.`);
+      return results;
+    } catch (error) {
+      console.error(`[${new Date().toISOString()}] ERROR: DailyMission.getAll - Error fetching missions:`, error);
+      throw error;
+    }
   },
 
   // Get mission by ID
-  getById: (id) => {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM daily_missions WHERE id = ?`;
-      db.query(sql, [id], (err, results) => {
-        if (err) reject(err);
-        else resolve(results[0]);
-      });
-    });
+  getById: async (id) => {
+    console.log(`[${new Date().toISOString()}] INFO: DailyMission.getById - Fetching mission with id: ${id}.`);
+    const sql = `SELECT * FROM daily_missions WHERE id = ?`;
+    try {
+      const [results] = await db.execute(sql, [id]);
+      if (results.length === 0) {
+        console.log(`[${new Date().toISOString()}] INFO: DailyMission.getById - No mission found with id: ${id}.`);
+        return null; // Or throw a custom 'NotFound' error
+      }
+      console.log(`[${new Date().toISOString()}] INFO: DailyMission.getById - Successfully fetched mission with id: ${id}.`);
+      return results[0];
+    } catch (error) {
+      console.error(`[${new Date().toISOString()}] ERROR: DailyMission.getById - Error fetching mission with id ${id}:`, error);
+      throw error;
+    }
   },
 
   // Create new mission template
-  create: (missionData) => {
-    return new Promise((resolve, reject) => {
-      const sql = `INSERT INTO daily_missions SET ?`;
-      db.query(sql, missionData, (err, results) => {
-        if (err) reject(err);
-        else resolve(results);
-      });
-    });
+  create: async (missionData) => {
+    console.log(`[${new Date().toISOString()}] INFO: DailyMission.create - Creating new mission.`);
+    const sql = `INSERT INTO daily_missions SET ?`;
+    try {
+      const [results] = await db.execute(sql, [missionData]); // Pass missionData as an object for SET ?
+      console.log(`[${new Date().toISOString()}] INFO: DailyMission.create - Successfully created mission with id: ${results.insertId}.`);
+      return results;
+    } catch (error) {
+      console.error(`[${new Date().toISOString()}] ERROR: DailyMission.create - Error creating mission:`, error);
+      throw error;
+    }
   }
 };
 
