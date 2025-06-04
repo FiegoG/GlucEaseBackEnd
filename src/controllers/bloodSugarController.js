@@ -13,18 +13,21 @@ class BloodSugarController {
       // Ambil 10 riwayat terakhir untuk tabel
       const recentHistory = await BloodSugarModel.getAllRecords(userId, 10, 0);
       
-      // Format data untuk grafik (group by date)
+     // Format data untuk grafik (group by date)
       const chartData = weeklyRecords.reduce((acc, record) => {
-        const date = record.check_date.toISOString().split('T')[0];
-        if (!acc[date]) {
-          acc[date] = [];
+        const checkDate = new Date(record.check_date); // pastikan ini objek Date
+        const localDate = checkDate.getFullYear() + '-' +
+                      String(checkDate.getMonth() + 1).padStart(2, '0') + '-' +
+                      String(checkDate.getDate()).padStart(2, '0');
+        if (!acc[localDate]) {
+          acc[localDate] = [];
         }
-        acc[date].push({
+        acc[localDate].push({
           level: record.blood_sugar_level,
           time: record.check_time
         });
         return acc;
-      }, {});
+      }, {});
 
       // Konversi ke format array untuk chart
       const formattedChartData = Object.keys(chartData).map(date => ({

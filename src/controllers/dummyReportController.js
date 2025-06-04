@@ -381,7 +381,6 @@ const dummyReportController = {
 
             insertPromises.push(
                 db.execute(query, [
-                    userId,
                     weeklyReportId,
                     dateStr,
                     dayOfWeek,
