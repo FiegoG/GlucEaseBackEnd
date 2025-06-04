@@ -14,6 +14,7 @@ const weeklyReportRoutes = require('./routes/weeklyReport');
 const missionRoutes = require('./routes/mission');
 const rewardRoutes = require('./routes/reward');
 const consultationRoutes = require('./routes/consultation');
+const subscriptionRoutes = require('./routes/subscriptionRoutes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -32,6 +33,7 @@ app.use('/api/weekly-report', weeklyReportRoutes);
 app.use('/api/missions', missionRoutes);
 app.use('/api/rewards', rewardRoutes);
 app.use('/api/consultation', consultationRoutes);
+app.use('/api/subscriptions', subscriptionRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
