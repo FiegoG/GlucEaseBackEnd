@@ -1,22 +1,37 @@
 // routes/weeklyReport.js
 const express = require('express');
 const router = express.Router();
-const weeklyReportController = require('../controllers/weeklyReportController');
-const auth = require('../middleware/auth'); // Assuming you have auth middleware
+const dummyReportController = require('../controllers/dummyReportController');
+const auth = require('../middleware/auth');
 
-// Get weekly sugar intake summary
-router.get('/sugar-intake/:userId', auth, weeklyReportController.getWeeklySugarIntake);
+// Get latest weekly report (untuk ditampilkan di halaman utama)
+router.get('/latest/:userId', auth, dummyReportController.getLatestWeeklyReport);
 
-// Get weekly blood sugar summary  
-router.get('/blood-sugar/:userId', auth, weeklyReportController.getWeeklyBloodSugar);
+// Get weekly reports history (untuk melihat laporan sebelumnya)
+router.get('/history/:userId', auth, dummyReportController.getWeeklyReportsHistory);
 
-// Generate AI analysis for sugar intake
-router.get('/analysis/sugar-intake/:userId', auth, weeklyReportController.generateSugarIntakeAnalysis);
+// Get specific weekly report by ID
+router.get('/:userId/:reportId', auth, dummyReportController.getWeeklyReportById);
 
-// Generate AI analysis for blood sugar
-router.get('/analysis/blood-sugar/:userId', auth, weeklyReportController.generateBloodSugarAnalysis);
-
-// Get complete weekly report
-router.get('/complete/:userId', auth, weeklyReportController.getCompleteWeeklyReport);
+// Manual generate weekly report (untuk testing atau generate manual)
+router.post('/generate/:userId', auth, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const reportId = await dummyReportController.generateUserWeeklyReport(userId);
+        
+        res.json({
+            success: true,
+            message: 'Weekly report generated successfully',
+            data: { reportId }
+        });
+    } catch (error) {
+        console.error('Error generating manual weekly report:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error generating weekly report',
+            error: error.message
+        });
+    }
+});
 
 module.exports = router;

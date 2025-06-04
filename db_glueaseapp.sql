@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2025 at 07:34 AM
+-- Generation Time: Jun 04, 2025 at 08:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `articles` (
   `id` bigint(20) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `author_id` bigint(20) NOT NULL,
+  `author` varchar(50) DEFAULT NULL,
   `content` text NOT NULL,
   `genre` enum('kesehatan','lifestyle') DEFAULT NULL,
   `published_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -43,8 +43,9 @@ CREATE TABLE `articles` (
 -- Dumping data for table `articles`
 --
 
-INSERT INTO `articles` (`id`, `title`, `author_id`, `content`, `genre`, `published_at`, `created_at`, `updated_at`, `is_active`) VALUES
-(1, 'Cara Menjaga Kesehatan Tubuh Agar Terhindar dari Penyakit', 1, 'Sebenarnya menerapkan berbagai cara menjaga kesehatan tubuh bukanlah hal yang sulit. Hanya saja, Anda harus konsisten dalam melakukannya. Hal ini perlu dibiasakan, mulai dari hal kecil seperti istirahat dengan cukup dan olahraga secara teratur.\r\n\r\n1. Konsumsi makanan sehat\r\n2. Olahraga secara rutin\r\n3. Jaga berat badan ideal \r\n4. Berhenti merokok\r\n5. Suplementasi bagi orang yang memiliki high-risk disease\r\n6. Lindungi kulit Anda\r\n7. Seks yang aman', 'kesehatan', '2025-05-24 02:31:36', '2025-05-24 02:31:36', '2025-05-24 02:31:36', 1);
+INSERT INTO `articles` (`id`, `title`, `author`, `content`, `genre`, `published_at`, `created_at`, `updated_at`, `is_active`) VALUES
+(1, 'Cara Menjaga Kesehatan Tubuh Agar Terhindar dari Penyakit', 'James', 'Sebenarnya menerapkan berbagai cara menjaga kesehatan tubuh bukanlah hal yang sulit. Hanya saja, Anda harus konsisten dalam melakukannya. Hal ini perlu dibiasakan, mulai dari hal kecil seperti istirahat dengan cukup dan olahraga secara teratur.\r\n\r\n1. Konsumsi makanan sehat\r\n2. Olahraga secara rutin\r\n3. Jaga berat badan ideal \r\n4. Berhenti merokok\r\n5. Suplementasi bagi orang yang memiliki high-risk disease\r\n6. Lindungi kulit Anda\r\n7. Seks yang aman', 'kesehatan', '2025-06-01 01:07:23', '2025-05-24 02:31:36', '2025-05-24 02:31:36', 1),
+(2, 'Olahraga Tetap Stylish dengan 6 Inspirasi Sportswear ala Davina Karamoy', 'Arifa', 'Olahraga bukan lagi sekadar soal keringat dan kalori terbakar, tapi juga soal gaya. Tren sportswear kini semakin digemari, terutama oleh para fashion enthusiast yang ingin tampil modis tanpa harus meninggalkan kenyamanan.\r\n\r\nSalah satu sosok yang sukses menciptakan kesan stylish saat olahraga adalah Davina Karamoy. Aktris muda ini kerap membagikan potret dirinya di lapangan tenis maupun padel dengan pilihan outfit yang tidak hanya fungsional, tetapi juga penuh gaya.\r\n\r\nDari tampilan monokrom hingga setelan klasik elegan, gaya sportswear Davina membuktikan bahwa tampil sporty dan fashionable bisa berjalan beriringan. Penasaran dengan ragam inspirasinya? Yuk, intip 6 outfit olahraga ala Davina Karamoy yang bisa jadi referensi gaya aktifmu berikutnya!\r\n\r\n1. Monokrom dengan Bodysuit\r\n2. Baby Blue Dress\r\n3. Monokrom Look\r\n4. Classic White Set\r\n5. Black and White Outfit\r\n6. Perpaduan Long Sleeve dan Rok Mini Beige', 'lifestyle', '2025-06-01 01:10:11', '2025-06-01 01:10:11', '2025-06-01 01:10:11', 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,13 @@ CREATE TABLE `blood_sugar_records` (
 
 INSERT INTO `blood_sugar_records` (`id`, `user_id`, `blood_sugar_level`, `check_date`, `check_time`, `created_at`, `updated_at`) VALUES
 (1, 3, 130, '2025-05-24', '08:00:00', '2025-05-25 17:12:49', '2025-05-25 17:13:56'),
-(2, 3, 100, '2025-05-25', '07:30:00', '2025-05-25 17:13:04', '2025-05-25 17:13:04');
+(2, 3, 100, '2025-05-25', '07:30:00', '2025-05-25 17:13:04', '2025-05-25 17:13:04'),
+(4, 4, 120, '2025-05-31', '15:24:00', '2025-05-31 08:24:21', '2025-05-31 08:24:21'),
+(5, 4, 80, '2025-05-30', '18:10:00', '2025-05-31 11:11:05', '2025-05-31 11:11:05'),
+(6, 4, 110, '2025-05-31', '19:29:00', '2025-05-31 12:32:14', '2025-05-31 12:32:14'),
+(7, 4, 300, '2025-05-29', '19:32:00', '2025-05-31 12:32:55', '2025-05-31 12:32:55'),
+(8, 4, 120, '2025-06-02', '14:47:00', '2025-06-02 07:47:46', '2025-06-02 07:47:46'),
+(9, 4, 250, '2025-06-02', '14:47:00', '2025-06-02 07:48:08', '2025-06-02 07:48:08');
 
 -- --------------------------------------------------------
 
@@ -124,6 +131,25 @@ INSERT INTO `coupons` (`id`, `code`, `discount_type`, `discount_value`, `min_amo
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `daily_health_metrics`
+--
+
+CREATE TABLE `daily_health_metrics` (
+  `id` bigint(20) NOT NULL,
+  `weekly_report_id` bigint(20) NOT NULL,
+  `date` date NOT NULL,
+  `day_of_week` varchar(20) NOT NULL,
+  `daily_sugar_intake` decimal(10,0) NOT NULL,
+  `sugar_intake_status` varchar(50) NOT NULL,
+  `daily_blood_sugar` decimal(10,0) NOT NULL,
+  `blood_sugar_status` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `daily_missions`
 --
 
@@ -161,7 +187,7 @@ CREATE TABLE `doctor_profiles` (
 --
 
 INSERT INTO `doctor_profiles` (`id`, `user_id`, `expertise`, `bio`, `rating`, `consultation_fee`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 5, 'Penyakit Dalam', 'Saya dokter rudi orangnya pintar dan tampan', 5, 100000, 1, '2025-05-29 21:13:21', '2025-05-29 21:13:21');
+(5, 5, 'Penyakit Dalam', 'Saya dokter rudi orangnya pintar dan tampan', 5, 100000, 1, '2025-05-29 21:13:21', '2025-06-01 20:08:03');
 
 -- --------------------------------------------------------
 
@@ -184,7 +210,9 @@ CREATE TABLE `doctor_schedules` (
 --
 
 INSERT INTO `doctor_schedules` (`id`, `doctor_id`, `available_time`, `available_date`, `is_booked`, `created_at`, `updated_at`) VALUES
-(1, 5, '08:14:41', '2025-05-31', 0, '2025-05-29 21:15:16', '2025-05-29 21:15:16');
+(1, 5, '08:14:41', '2025-05-31', 0, '2025-05-29 21:15:16', '2025-05-29 21:15:16'),
+(2, 5, '15:34:28', '2025-06-02', 0, '2025-06-01 18:35:28', '2025-06-01 18:35:28'),
+(3, 5, '10:34:28', '2025-06-02', 0, '2025-06-01 18:35:28', '2025-06-01 18:35:28');
 
 -- --------------------------------------------------------
 
@@ -287,6 +315,23 @@ CREATE TABLE `point_transactions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `premium_packacges`
+--
+
+CREATE TABLE `premium_packacges` (
+  `id` bigint(20) NOT NULL,
+  `package_name` varchar(100) NOT NULL,
+  `duration_monts` int(11) NOT NULL,
+  `price` decimal(10,0) NOT NULL,
+  `description` text NOT NULL,
+  `is_active` tinyint(4) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reminders`
 --
 
@@ -316,6 +361,16 @@ CREATE TABLE `sugar_intake_records` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sugar_intake_records`
+--
+
+INSERT INTO `sugar_intake_records` (`id`, `user_id`, `food_id`, `quantity`, `date`, `created_at`, `updated_at`) VALUES
+(2, 4, 2, 1, '2025-06-01', '2025-05-31 21:26:58', '2025-05-31 21:26:58'),
+(3, 4, 1, 1, '2025-06-01', '2025-06-01 12:56:28', '2025-06-01 12:56:28'),
+(4, 4, 1, 1, '2025-06-02', '2025-06-01 19:23:38', '2025-06-01 19:23:38'),
+(5, 4, 2, 2, '2025-06-02', '2025-06-02 07:38:09', '2025-06-02 07:38:29');
 
 -- --------------------------------------------------------
 
@@ -406,11 +461,32 @@ CREATE TABLE `user_points` (
 CREATE TABLE `user_premium_subscriptions` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
+  `package_id` bigint(20) NOT NULL,
+  `transaction_id` bigint(20) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `status` enum('active','inactive','canceled') NOT NULL,
+  `is_active` tinyint(4) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_premium_transactions`
+--
+
+CREATE TABLE `user_premium_transactions` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `package_id` bigint(20) NOT NULL,
+  `transaction_amount` decimal(10,0) NOT NULL,
+  `transaction_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `payment_method` varchar(50) NOT NULL,
+  `payment_status` enum('pending','completed','failed') NOT NULL,
+  `payment_reference` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -472,10 +548,22 @@ CREATE TABLE `weekly_reports` (
   `week_end_date` date NOT NULL,
   `sugar_intake_summary` text NOT NULL,
   `blood_sugar_summary` text NOT NULL,
-  `ai_recomendations` text NOT NULL,
+  `blood_sugar_recomendation` text NOT NULL,
+  `sugar_intake_recomendations` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `weekly_reports`
+--
+
+INSERT INTO `weekly_reports` (`id`, `user_id`, `week_start_date`, `week_end_date`, `sugar_intake_summary`, `blood_sugar_summary`, `blood_sugar_recomendation`, `sugar_intake_recomendations`, `created_at`, `updated_at`) VALUES
+(1, 4, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"Tidak ada data asupan gula yang tercatat minggu ini.\",\"saran\":[\"Mulai mencatat asupan makanan harian\",\"Perhatikan kandungan gula dalam makanan\",\"Konsultasikan pola makan dengan ahli gizi\"],\"peringatan\":null}', '{\"kesimpulan\":\"Terjadi kesalahan dalam menganalisis data gula darah.\",\"saran\":[\"Konsultasikan dengan dokter untuk evaluasi lebih lanjut\"],\"peringatan\":\"Selalu konsultasikan hasil dengan tenaga medis profesional\"}', '', '', '2025-06-03 20:19:30', '2025-06-03 20:19:30'),
+(2, 4, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"Tidak ada data asupan gula yang tercatat minggu ini.\",\"saran\":[\"Mulai mencatat asupan makanan harian\",\"Perhatikan kandungan gula dalam makanan\",\"Konsultasikan pola makan dengan ahli gizi\"],\"peringatan\":null}', '{\"kesimpulan\":\"Terjadi kesalahan dalam menganalisis data gula darah.\",\"saran\":[\"Konsultasikan dengan dokter untuk evaluasi lebih lanjut\"],\"peringatan\":\"Selalu konsultasikan hasil dengan tenaga medis profesional\"}', '', '', '2025-06-03 20:29:24', '2025-06-03 20:29:24'),
+(3, 4, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"Tidak ada data asupan gula yang tercatat minggu ini.\",\"saran\":[\"Mulai mencatat asupan makanan harian\",\"Perhatikan kandungan gula dalam makanan\",\"Konsultasikan pola makan dengan ahli gizi\"],\"peringatan\":null}', '{\"kesimpulan\":\"Terjadi kesalahan dalam menganalisis data gula darah.\",\"saran\":[\"Konsultasikan dengan dokter untuk evaluasi lebih lanjut\"],\"peringatan\":\"Selalu konsultasikan hasil dengan tenaga medis profesional\"}', '', '', '2025-06-03 20:35:42', '2025-06-03 20:35:42'),
+(4, 4, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"Tidak ada data asupan gula yang tercatat minggu ini.\",\"saran\":[\"Mulai mencatat asupan makanan harian\",\"Perhatikan kandungan gula dalam makanan\",\"Konsultasikan pola makan dengan ahli gizi\"],\"peringatan\":null}', '{\"kesimpulan\":\"Terjadi kesalahan dalam menganalisis data gula darah.\",\"saran\":[\"Konsultasikan dengan dokter untuk evaluasi lebih lanjut\"],\"peringatan\":\"Selalu konsultasikan hasil dengan tenaga medis profesional\"}', '', '', '2025-06-03 20:49:46', '2025-06-03 20:49:46'),
+(5, 1, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '', '', '2025-06-03 22:10:00', '2025-06-03 22:10:00');
 
 --
 -- Indexes for dumped tables
@@ -485,8 +573,7 @@ CREATE TABLE `weekly_reports` (
 -- Indexes for table `articles`
 --
 ALTER TABLE `articles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `author_id` (`author_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `blood_sugar_records`
@@ -509,6 +596,13 @@ ALTER TABLE `consultation_bookings`
 ALTER TABLE `coupons`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `code` (`code`);
+
+--
+-- Indexes for table `daily_health_metrics`
+--
+ALTER TABLE `daily_health_metrics`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `weekly_report_id` (`weekly_report_id`);
 
 --
 -- Indexes for table `daily_missions`
@@ -563,6 +657,12 @@ ALTER TABLE `point_transactions`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `premium_packacges`
+--
+ALTER TABLE `premium_packacges`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `reminders`
 --
 ALTER TABLE `reminders`
@@ -610,7 +710,17 @@ ALTER TABLE `user_points`
 --
 ALTER TABLE `user_premium_subscriptions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `package_id` (`package_id`),
+  ADD KEY `transaction_id` (`transaction_id`);
+
+--
+-- Indexes for table `user_premium_transactions`
+--
+ALTER TABLE `user_premium_transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `package_id` (`package_id`);
 
 --
 -- Indexes for table `user_profiles`
@@ -642,13 +752,13 @@ ALTER TABLE `weekly_reports`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `blood_sugar_records`
 --
 ALTER TABLE `blood_sugar_records`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `consultation_bookings`
@@ -663,6 +773,12 @@ ALTER TABLE `coupons`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `daily_health_metrics`
+--
+ALTER TABLE `daily_health_metrics`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `daily_missions`
 --
 ALTER TABLE `daily_missions`
@@ -672,13 +788,13 @@ ALTER TABLE `daily_missions`
 -- AUTO_INCREMENT for table `doctor_profiles`
 --
 ALTER TABLE `doctor_profiles`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `doctor_schedules`
 --
 ALTER TABLE `doctor_schedules`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `foods`
@@ -711,6 +827,12 @@ ALTER TABLE `point_transactions`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `premium_packacges`
+--
+ALTER TABLE `premium_packacges`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `reminders`
 --
 ALTER TABLE `reminders`
@@ -720,7 +842,7 @@ ALTER TABLE `reminders`
 -- AUTO_INCREMENT for table `sugar_intake_records`
 --
 ALTER TABLE `sugar_intake_records`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -753,6 +875,12 @@ ALTER TABLE `user_premium_subscriptions`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `user_premium_transactions`
+--
+ALTER TABLE `user_premium_transactions`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user_profiles`
 --
 ALTER TABLE `user_profiles`
@@ -768,17 +896,11 @@ ALTER TABLE `user_rewards`
 -- AUTO_INCREMENT for table `weekly_reports`
 --
 ALTER TABLE `weekly_reports`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `articles`
---
-ALTER TABLE `articles`
-  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `blood_sugar_records`
@@ -792,6 +914,12 @@ ALTER TABLE `blood_sugar_records`
 ALTER TABLE `consultation_bookings`
   ADD CONSTRAINT `consultation_bookings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `consultation_bookings_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `daily_health_metrics`
+--
+ALTER TABLE `daily_health_metrics`
+  ADD CONSTRAINT `daily_health_metrics_ibfk_1` FOREIGN KEY (`weekly_report_id`) REFERENCES `weekly_reports` (`id`);
 
 --
 -- Constraints for table `doctor_profiles`
@@ -853,7 +981,16 @@ ALTER TABLE `user_points`
 -- Constraints for table `user_premium_subscriptions`
 --
 ALTER TABLE `user_premium_subscriptions`
-  ADD CONSTRAINT `user_premium_subscriptions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `user_premium_subscriptions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `user_premium_subscriptions_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `user_premium_transactions` (`id`),
+  ADD CONSTRAINT `user_premium_subscriptions_ibfk_3` FOREIGN KEY (`package_id`) REFERENCES `premium_packacges` (`id`);
+
+--
+-- Constraints for table `user_premium_transactions`
+--
+ALTER TABLE `user_premium_transactions`
+  ADD CONSTRAINT `user_premium_transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `user_premium_transactions_ibfk_2` FOREIGN KEY (`package_id`) REFERENCES `premium_packacges` (`id`);
 
 --
 -- Constraints for table `user_profiles`
