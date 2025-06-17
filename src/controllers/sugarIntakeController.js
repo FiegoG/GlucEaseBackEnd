@@ -50,7 +50,7 @@ class SugarTrackerController {
                         sugar_per_portion: item.sugar,
                         total_sugar: parseFloat((item.total_sugar || 0).toFixed(2)),
                         total_calories: parseFloat((item.total_calories || 0).toFixed(2)),
-                        consumed_at: item.created_at
+                        consumed_at: SugarTrackerController.formatDate(item.created_at)
                     }))
                 }
             });
@@ -62,6 +62,20 @@ class SugarTrackerController {
                 error: error.message
             });
         }
+    }
+
+    static formatDate(dateString) {
+        if (!dateString) {
+            return '-';
+        }
+
+        const date = new Date(dateString);
+
+        return new Intl.DateTimeFormat('id-ID', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        }).format(date);
     }
 
     // [HALAMAN TAMBAH MAKANAN] - Mendapatkan daftar semua makanan

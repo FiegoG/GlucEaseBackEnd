@@ -16,6 +16,8 @@ const rewardRoutes = require('./routes/reward');
 const consultationRoutes = require('./routes/consultation');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
 
+const scheduler = require('./services/scheduler');
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -57,6 +59,9 @@ app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ message: 'Internal server error' });
 });
+
+// scheduler.initDailyMissionReset();
+// scheduler.initEndOfDayMissionEvaluation();
 
 
 const PORT = process.env.PORT || 3000;

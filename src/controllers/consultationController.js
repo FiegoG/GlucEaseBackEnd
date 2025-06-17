@@ -24,7 +24,7 @@ const consultationController = {
   },
 
   // GET /api/consultation/doctor/:id - Ambil detail dokter dan jadwal
-  getDoctorDetail: async (req, res) => {
+ getDoctorDetail: async (req, res) => {
     try {
       const { id } = req.params;
       
@@ -36,14 +36,54 @@ const consultationController = {
         });
       }
 
-      const schedules = await ConsultationBooking.getDoctorSchedules(id);
+      const rawSchedules = await ConsultationBooking.getDoctorSchedules(id);
+
+      const groupedByDateSchedules = [];
+
+      rawSchedules.forEach(item => {
+        const fullDate = new Date(item.available_date);
+        const dateKey = fullDate.toISOString().split('T')[0];
+
+        let scheduleForThatDate = groupedByDateSchedules.find(s => s.date === dateKey);
+
+        if (!scheduleForThatDate) {
+          const day = fullDate.toLocaleDateString("id-ID",
+            {
+              weekday: "long"
+            }
+          );
+
+          const month = fullDate.toLocaleDateString("id-ID",
+            {
+              month: "short",
+            }
+          );
+
+          const week = Math.ceil(fullDate.getDate() / 7);
+
+          scheduleForThatDate = {
+            date: dateKey,
+            day_number: fullDate.getDate(),
+            day: day.charAt(0).toUpperCase() + day.slice(1),
+            month: month.charAt(0).toUpperCase() + month.slice(1),
+            week: week,
+            times: [],
+          };
+
+          groupedByDateSchedules.push(scheduleForThatDate);
+        }
+
+        scheduleForThatDate.times.push(item.available_time);
+      });
+
+      groupedByDateSchedules.sort((a, b) => new Date(a.date) - new Date(b.date));
       
       res.status(200).json({
         success: true,
         message: 'Doctor detail retrieved successfully',
         data: {
           doctor,
-          schedules
+          schedules: groupedByDateSchedules
         }
       });
     } catch (error) {

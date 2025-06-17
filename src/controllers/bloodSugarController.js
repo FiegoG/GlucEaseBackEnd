@@ -1,5 +1,6 @@
 //src/controllers/bloodSugarController.js
 const BloodSugarModel = require('../models/bloodSugarModel');
+// const missionService = require('../services/missionService');
 
 class BloodSugarController {
   // GET /api/blood-sugar/dashboard - Mendapatkan data untuk dashboard
@@ -135,7 +136,9 @@ class BloodSugarController {
         parseFloat(bloodSugarLevel), 
         checkDate, 
         checkTime
-      );
+      );1
+
+      // await missionService.handleEvent(userId, 'log_blood_sugar', 1);
 
       const newRecord = await BloodSugarModel.getRecordById(recordId, userId);
 

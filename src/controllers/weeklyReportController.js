@@ -3,6 +3,9 @@ const db = require('../config/db');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const cron = require('node-cron');
 
+// TO EXTRACT API
+// too generate API try use this link https://generativelanguage.googleapis.com/v1beta/models?key={API_KEY}
+
 console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? 'Loaded' : 'NOT LOADED or Empty');
 console.log('Type of GoogleGenerativeAI:', typeof GoogleGenerativeAI); // Harusnya 'function' (karena ini adalah constructor/class)
 console.log('GoogleGenerativeAI constructor:', GoogleGenerativeAI);

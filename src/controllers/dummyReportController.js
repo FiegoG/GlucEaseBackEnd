@@ -50,12 +50,17 @@ const dummyReportController = {
             const sugarIntakeAnalysis = await dummyReportController.generateAISugarIntakeAnalysis(sugarIntakeData);
             const bloodSugarAnalysis = await dummyReportController.generateAIBloodSugarAnalysis(bloodSugarData);
 
+            const sugarIntakeAnalysisWithRecommendation = await dummyReportController.generateAIBloodSugarRecomendation(sugarIntakeData);
+            const bloodSugarAnalysisWithRecommendation = await dummyReportController.generateAIBloodSugarRecomendation(bloodSugarData);
+
             const weeklyReportId = await dummyReportController.saveWeeklyReport(
                 userId, 
                 startDateStr, 
                 endDateStr, 
-                sugarIntakeAnalysis, 
-                bloodSugarAnalysis
+                sugarIntakeAnalysis,
+                sugarIntakeAnalysisWithRecommendation, 
+                bloodSugarAnalysis,
+                bloodSugarAnalysisWithRecommendation
             );
 
             await dummyReportController.saveDailyHealthMetrics(
@@ -322,35 +327,39 @@ const dummyReportController = {
     // Generate AI analysis untuk sugar intake
     generateAISugarIntakeAnalysis: async (weeklyData) => {
         console.log("Skipping actual AI call for Sugar Intake, returning placeholder.");
-        return {
-            kesimpulan: "AI under construction",
-            saran: ["AI under construction"],
-            peringatan: "AI under construction"
-        };
+        return "AI under construction";
     },
 
     // Generate AI analysis untuk blood sugar
     generateAIBloodSugarAnalysis: async (weeklyData) => {
         console.log("Skipping actual AI call for Blood Sugar, returning placeholder.");
-        return {
-            kesimpulan: "AI under construction",
-            saran: ["AI under construction"],
-            peringatan: "AI under construction"
-        };
+        return "AI under construction";
     },
 
-    saveWeeklyReport: async (userId, startDate, endDate, sugarIntakeAnalysis, bloodSugarAnalysis) => {
+    generateAIBloodSugarRecomendation: async (weeklyData) => {
+        console.log("Skipping actual AI call for Blood Sugar, returning placeholder.");
+        return "AI under construction";
+    },
+
+    generateAIBloodSugarRecomendation: async (weeklyData) => {
+        console.log("Skipping actual AI call for Blood Sugar, returning placeholder.");
+        return "AI under construction";
+    },
+
+    saveWeeklyReport: async (userId, startDate, endDate, sugarIntakeAnalysis, sugarIntakeAnalysisWithRecommendation ,bloodSugarAnalysis, bloodSugarAnalysisWithRecommendation) => {
         const query = `
             INSERT INTO weekly_reports 
-            (user_id, week_start_date, week_end_date, sugar_intake_summary, blood_sugar_summary, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, NOW(), NOW())
+            (user_id, week_start_date, week_end_date, sugar_intake_summary, sugar_intake_recomendations, blood_sugar_summary, blood_sugar_recomendation, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?,NOW(), NOW())
         `;
         const [result] = await db.execute(query, [
             userId,
             startDate,
             endDate,
-            JSON.stringify(sugarIntakeAnalysis),
-            JSON.stringify(bloodSugarAnalysis)
+            sugarIntakeAnalysis,
+            sugarIntakeAnalysisWithRecommendation,
+            bloodSugarAnalysis,
+            bloodSugarAnalysisWithRecommendation
         ]);
         return result.insertId;
     },
@@ -440,21 +449,18 @@ async function formatReportResponse(report) {
     }));
 
     let sugarIntakeAnalysis, bloodSugarAnalysis;
-    try {
-        sugarIntakeAnalysis = JSON.parse(report.sugar_intake_summary);
-        bloodSugarAnalysis = JSON.parse(report.blood_sugar_summary);
-    } catch (parseError) {
-        sugarIntakeAnalysis = {
-            kesimpulan: report.sugar_intake_summary || "Data tidak tersedia",
-            saran: ["Konsultasikan dengan dokter untuk panduan yang lebih spesifik"],
-            peringatan: null
-        };
-        bloodSugarAnalysis = {
-            kesimpulan: report.blood_sugar_summary || "Data tidak tersedia",
-            saran: ["Konsultasikan dengan dokter untuk evaluasi lebih lanjut"],
-            peringatan: "Selalu konsultasikan hasil dengan tenaga medis profesional"
-        };
-    }
+    
+    sugarIntakeAnalysis = {
+        'kesimpulan': report.sugar_intake_summary || "Data kesimpulan tidak tersedia",
+        'saran': report.sugar_intake_recomendations || "Data saran tidak tersedia",
+        'peringatan': "Selalu konsultasikan hasil dengan tenaga medis profesional"
+    };
+
+    bloodSugarAnalysis = {
+        'kesimpulan': report.blood_sugar_summary || "Data kesimpulan tidak tersedia",
+        'saran': report.blood_sugar_recomendation || "Data saran tidak tersedia",
+        'peringatan': "Selalu konsultasikan hasil dengan tenaga medis profesional"
+    };
 
     return {
         success: true,
@@ -489,7 +495,7 @@ async function formatReportResponse(report) {
 cron.schedule('59 23 * * 6', async () => { // Sabtu 23:59
 // cron.schedule('*/5 * * * *', async () => { // Uncomment untuk testing setiap 5 menit
     console.log(`Running scheduled job at ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })} Jakarta time.`);
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV !== 'priduction') {
          console.log('Running weekly report generation by cron...');
          await dummyReportController.generateWeeklyReports();
     } else {
@@ -498,6 +504,18 @@ cron.schedule('59 23 * * 6', async () => { // Sabtu 23:59
 }, {
     timezone: "Asia/Jakarta"
 });
+
+// cron.schedule('*/1 * * * *', async () => { // Sabtu 23:59
+//     console.log(`Running scheduled job at ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })} Jakarta time.`);
+//     if (process.env.NODE_ENV !== 'test') {
+//          console.log('Running weekly report generation by cron...');
+//          await dummyReportController.generateWeeklyReports();
+//     } else {
+//         console.log('Skipping cron job in test environment.');
+//     }
+// }, {
+//     timezone: "Asia/Jakarta"
+// });
 
 console.log(`Cron job for weekly reports scheduled. Current time: ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}`);
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`);

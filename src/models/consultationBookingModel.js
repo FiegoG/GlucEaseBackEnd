@@ -56,6 +56,9 @@ const ConsultationBooking = {
       WHERE doctor_id = ? 
         AND available_date >= CURDATE() 
         AND is_booked = 0
+        AND MONTH(available_date) = MONTH(CURDATE())
+        AND YEAR(available_date) = YEAR(CURDATE())
+        AND YEARWEEK(available_date, 1) = YEARWEEK(CURDATE(), 1)
       ORDER BY available_date ASC, available_time ASC
     `;
     const [rows] = await db.execute(query, [doctorId]);
