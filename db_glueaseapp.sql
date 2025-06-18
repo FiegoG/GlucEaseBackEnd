@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2025 at 08:57 AM
+-- Generation Time: Jun 18, 2025 at 04:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,14 +39,6 @@ CREATE TABLE `articles` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `articles`
---
-
-INSERT INTO `articles` (`id`, `title`, `author`, `content`, `genre`, `published_at`, `created_at`, `updated_at`, `is_active`) VALUES
-(1, 'Cara Menjaga Kesehatan Tubuh Agar Terhindar dari Penyakit', 'James', 'Sebenarnya menerapkan berbagai cara menjaga kesehatan tubuh bukanlah hal yang sulit. Hanya saja, Anda harus konsisten dalam melakukannya. Hal ini perlu dibiasakan, mulai dari hal kecil seperti istirahat dengan cukup dan olahraga secara teratur.\r\n\r\n1. Konsumsi makanan sehat\r\n2. Olahraga secara rutin\r\n3. Jaga berat badan ideal \r\n4. Berhenti merokok\r\n5. Suplementasi bagi orang yang memiliki high-risk disease\r\n6. Lindungi kulit Anda\r\n7. Seks yang aman', 'kesehatan', '2025-06-01 01:07:23', '2025-05-24 02:31:36', '2025-05-24 02:31:36', 1),
-(2, 'Olahraga Tetap Stylish dengan 6 Inspirasi Sportswear ala Davina Karamoy', 'Arifa', 'Olahraga bukan lagi sekadar soal keringat dan kalori terbakar, tapi juga soal gaya. Tren sportswear kini semakin digemari, terutama oleh para fashion enthusiast yang ingin tampil modis tanpa harus meninggalkan kenyamanan.\r\n\r\nSalah satu sosok yang sukses menciptakan kesan stylish saat olahraga adalah Davina Karamoy. Aktris muda ini kerap membagikan potret dirinya di lapangan tenis maupun padel dengan pilihan outfit yang tidak hanya fungsional, tetapi juga penuh gaya.\r\n\r\nDari tampilan monokrom hingga setelan klasik elegan, gaya sportswear Davina membuktikan bahwa tampil sporty dan fashionable bisa berjalan beriringan. Penasaran dengan ragam inspirasinya? Yuk, intip 6 outfit olahraga ala Davina Karamoy yang bisa jadi referensi gaya aktifmu berikutnya!\r\n\r\n1. Monokrom dengan Bodysuit\r\n2. Baby Blue Dress\r\n3. Monokrom Look\r\n4. Classic White Set\r\n5. Black and White Outfit\r\n6. Perpaduan Long Sleeve dan Rok Mini Beige', 'lifestyle', '2025-06-01 01:10:11', '2025-06-01 01:10:11', '2025-06-01 01:10:11', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -68,14 +60,9 @@ CREATE TABLE `blood_sugar_records` (
 --
 
 INSERT INTO `blood_sugar_records` (`id`, `user_id`, `blood_sugar_level`, `check_date`, `check_time`, `created_at`, `updated_at`) VALUES
-(1, 3, 130, '2025-05-24', '08:00:00', '2025-05-25 17:12:49', '2025-05-25 17:13:56'),
-(2, 3, 100, '2025-05-25', '07:30:00', '2025-05-25 17:13:04', '2025-05-25 17:13:04'),
-(4, 4, 120, '2025-05-31', '15:24:00', '2025-05-31 08:24:21', '2025-05-31 08:24:21'),
-(5, 4, 80, '2025-05-30', '18:10:00', '2025-05-31 11:11:05', '2025-05-31 11:11:05'),
-(6, 4, 110, '2025-05-31', '19:29:00', '2025-05-31 12:32:14', '2025-05-31 12:32:14'),
-(7, 4, 300, '2025-05-29', '19:32:00', '2025-05-31 12:32:55', '2025-05-31 12:32:55'),
-(8, 4, 120, '2025-06-02', '14:47:00', '2025-06-02 07:47:46', '2025-06-02 07:47:46'),
-(9, 4, 250, '2025-06-02', '14:47:00', '2025-06-02 07:48:08', '2025-06-02 07:48:08');
+(11, 4, 100, '2025-06-05', '11:23:00', '2025-06-05 04:23:34', '2025-06-05 04:23:34'),
+(12, 4, 120, '2025-06-05', '13:00:00', '2025-06-05 04:24:06', '2025-06-05 04:24:06'),
+(13, 4, 100, '2025-06-14', '08:10:27', '2025-06-14 02:12:03', '2025-06-14 02:12:03');
 
 -- --------------------------------------------------------
 
@@ -118,15 +105,16 @@ CREATE TABLE `coupons` (
   `max_usage` int(11) DEFAULT 1,
   `is_active` tinyint(1) DEFAULT 1,
   `expired_at` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `coupons`
 --
 
-INSERT INTO `coupons` (`id`, `code`, `discount_type`, `discount_value`, `min_amount`, `max_usage`, `is_active`, `expired_at`, `created_at`) VALUES
-(1, 'DISKON50', 'percentage', 50.00, 0.00, 1, 1, '2025-06-05', '2025-05-29 21:07:39');
+INSERT INTO `coupons` (`id`, `code`, `discount_type`, `discount_value`, `min_amount`, `max_usage`, `is_active`, `expired_at`, `created_at`, `updated_at`) VALUES
+(1, 'DISKON50', 'percentage', 50.00, 0.00, 1, 1, '2025-06-05', '2025-05-29 21:07:39', '2025-06-04 09:02:15');
 
 -- --------------------------------------------------------
 
@@ -147,6 +135,54 @@ CREATE TABLE `daily_health_metrics` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `daily_health_metrics`
+--
+
+INSERT INTO `daily_health_metrics` (`id`, `weekly_report_id`, `date`, `day_of_week`, `daily_sugar_intake`, `sugar_intake_status`, `daily_blood_sugar`, `blood_sugar_status`, `created_at`, `updated_at`) VALUES
+(1, 6, '2025-05-26', 'Senin', 26, 'Normal', 90, 'Normal', '2025-06-05 01:27:02', '2025-06-05 01:27:02'),
+(2, 6, '2025-05-27', 'Selasa', 30, 'Sedang', 96, 'Normal', '2025-06-05 01:27:02', '2025-06-05 01:27:02'),
+(3, 6, '2025-05-28', 'Rabu', 40, 'Tinggi', 110, 'Pre-diabetes', '2025-06-05 01:27:02', '2025-06-05 01:27:02'),
+(4, 6, '2025-05-29', 'Kamis', 20, 'Rendah', 85, 'Normal', '2025-06-05 01:27:02', '2025-06-05 01:27:02'),
+(5, 6, '2025-05-30', 'Jumat', 36, 'Sedang', 100, 'Normal', '2025-06-05 01:27:02', '2025-06-05 01:27:02'),
+(6, 6, '2025-05-31', 'Sabtu', 50, 'Tinggi', 121, 'Pre-diabetes', '2025-06-05 01:27:02', '2025-06-05 01:27:02'),
+(7, 6, '2025-06-01', 'Minggu', 28, 'Normal', 92, 'Normal', '2025-06-05 01:27:02', '2025-06-05 01:27:02'),
+(8, 7, '2025-06-02', '2', 12, '', 0, '', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(9, 7, '2025-06-05', '5', 42, '', 110, '', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(10, 7, '2025-06-07', '7', 0, '', 0, '', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(11, 7, '2025-06-03', '3', 0, '', 0, '', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(12, 7, '2025-06-04', '4', 0, '', 0, '', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(13, 7, '2025-06-06', '6', 0, '', 0, '', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(14, 7, '2025-06-08', '1', 0, '', 0, '', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(15, 8, '2025-06-02', '2', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(16, 8, '2025-06-08', '1', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(17, 8, '2025-06-07', '7', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(18, 8, '2025-06-03', '3', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(19, 8, '2025-06-04', '4', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(20, 8, '2025-06-05', '5', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(21, 8, '2025-06-06', '6', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(22, 9, '2025-06-02', '2', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(23, 9, '2025-06-03', '3', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(24, 9, '2025-06-04', '4', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(25, 9, '2025-06-05', '5', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(26, 9, '2025-06-06', '6', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(27, 9, '2025-06-07', '7', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(28, 9, '2025-06-08', '1', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(29, 10, '2025-06-02', '2', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(30, 10, '2025-06-03', '3', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(31, 10, '2025-06-04', '4', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(32, 10, '2025-06-05', '5', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(33, 10, '2025-06-06', '6', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(34, 10, '2025-06-07', '7', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(35, 10, '2025-06-08', '1', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(36, 11, '2025-06-02', '2', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(37, 11, '2025-06-03', '3', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(38, 11, '2025-06-04', '4', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(39, 11, '2025-06-05', '5', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(40, 11, '2025-06-06', '6', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(41, 11, '2025-06-07', '7', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(42, 11, '2025-06-08', '1', 0, '', 0, '', '2025-06-14 02:58:00', '2025-06-14 02:58:00');
+
 -- --------------------------------------------------------
 
 --
@@ -157,12 +193,26 @@ CREATE TABLE `daily_missions` (
   `id` bigint(20) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `reward_type` enum('discount','voucher','none') NOT NULL,
+  `reward_type` enum('discount','voucher','none','point') NOT NULL,
   `reward_value` varchar(255) DEFAULT NULL,
+  `target_value` int(11) NOT NULL,
+  `is_active` tinyint(4) NOT NULL DEFAULT 1,
+  `mission_logic_type` varchar(50) DEFAULT NULL,
+  `trigger_event_key` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `point_reward` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `daily_missions`
+--
+
+INSERT INTO `daily_missions` (`id`, `title`, `description`, `reward_type`, `reward_value`, `target_value`, `is_active`, `mission_logic_type`, `trigger_event_key`, `created_at`, `updated_at`, `point_reward`) VALUES
+(5, 'Cek gula darah & input ke tracker', 'Cek gula darah Anda hari ini menggunakan glukometer dan catat hasilnya di fitur tracker untuk memantau kondisi Anda.', 'point', '100', 1, 1, 'COUNT_UP', 'log_blood_sugar', '2025-06-17 01:27:51', '2025-06-17 01:27:51', 100),
+(6, 'Konsumsi gula < 35g hari ini', 'Jaga asupan gula harian Anda di bawah 35 gram. Catat setiap makanan yang Anda konsumsi di food tracker untuk memonitor progresnya.', 'point', '200', 35, 1, 'STAY_BELOW_SUM', 'log_food_item', '2025-06-17 01:27:51', '2025-06-17 01:27:51', 200),
+(7, 'Tambahkan 1 makanan ke trakcer hari ini', 'Catat setidaknya satu jenis makanan atau minuman yang Anda konsumsi hari ini ke dalam fitur food tracker.', 'point', '50', 1, 1, 'COUNT_UP', 'log_food_item', '2025-06-17 01:27:51', '2025-06-17 01:27:51', 0),
+(8, 'Baca 1 artikel kesehatan di GlucEase', 'Tambah wawasan Anda tentang kesehatan dengan membaca satu artikel pilihan yang ada di aplikasi GlucEase hari ini.', 'point', '50', 1, 1, 'COUNT_UP', 'read_article', '2025-06-17 01:27:51', '2025-06-17 01:27:51', 50);
 
 -- --------------------------------------------------------
 
@@ -187,7 +237,7 @@ CREATE TABLE `doctor_profiles` (
 --
 
 INSERT INTO `doctor_profiles` (`id`, `user_id`, `expertise`, `bio`, `rating`, `consultation_fee`, `is_active`, `created_at`, `updated_at`) VALUES
-(5, 5, 'Penyakit Dalam', 'Saya dokter rudi orangnya pintar dan tampan', 5, 100000, 1, '2025-05-29 21:13:21', '2025-06-01 20:08:03');
+(7, 7, 'Organ Dalam', 'Saya dokter rudi panjaitan', 5, 100000, 1, '2025-06-14 03:45:29', '2025-06-14 03:45:29');
 
 -- --------------------------------------------------------
 
@@ -210,9 +260,12 @@ CREATE TABLE `doctor_schedules` (
 --
 
 INSERT INTO `doctor_schedules` (`id`, `doctor_id`, `available_time`, `available_date`, `is_booked`, `created_at`, `updated_at`) VALUES
-(1, 5, '08:14:41', '2025-05-31', 0, '2025-05-29 21:15:16', '2025-05-29 21:15:16'),
-(2, 5, '15:34:28', '2025-06-02', 0, '2025-06-01 18:35:28', '2025-06-01 18:35:28'),
-(3, 5, '10:34:28', '2025-06-02', 0, '2025-06-01 18:35:28', '2025-06-01 18:35:28');
+(4, 7, '12:45:35', '2025-06-14', 0, '2025-06-14 03:46:10', '2025-06-14 03:46:10'),
+(5, 7, '12:48:05', '2025-06-15', 0, '2025-06-14 03:48:21', '2025-06-14 03:48:21'),
+(7, 7, '18:48:25', '2025-06-14', 0, '2025-06-14 03:48:44', '2025-06-14 03:48:44'),
+(8, 7, '08:42:06', '2025-06-15', 0, '2025-06-14 04:42:26', '2025-06-14 04:42:26'),
+(9, 7, '11:50:00', '2025-06-21', 0, '2025-06-14 04:50:47', '2025-06-14 04:50:47'),
+(10, 7, '15:50:02', '2025-07-02', 0, '2025-06-14 04:50:47', '2025-06-14 04:50:47');
 
 -- --------------------------------------------------------
 
@@ -312,6 +365,13 @@ CREATE TABLE `point_transactions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `point_transactions`
+--
+
+INSERT INTO `point_transactions` (`id`, `user_id`, `type`, `source_id`, `points`, `created_at`) VALUES
+(1, 4, '', 0, 300, '2025-06-04 11:46:26');
+
 -- --------------------------------------------------------
 
 --
@@ -329,6 +389,14 @@ CREATE TABLE `premium_packacges` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `premium_packacges`
+--
+
+INSERT INTO `premium_packacges` (`id`, `package_name`, `duration_monts`, `price`, `description`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Langganan Bulanan', 1, 30000, 'Nikmati semua fitur premium GlucEase selama 1 bulan penuh! \r\nTermasuk akses misi harian premium, \r\ntukar poin dengan reward eksklusif, \r\ndan konsultasi gratis 1x.\'', 1, '2025-06-04 15:02:02', '2025-06-04 15:02:02'),
+(2, 'Langganan Tahunan', 12, 300000, 'Dapatkan akses tanpa batas ke semua fitur premium GlucEase selama 1 tahun dengan harga lebih hemat (Diskon 20% dibandingkan bulanan)! \r\nNikmati semua benefit: misi harian premium, tukar poin, dan konsultasi gratis 1x per 3 bulan.', 1, '2025-06-04 15:02:02', '2025-06-04 15:02:02');
+
 -- --------------------------------------------------------
 
 --
@@ -344,6 +412,26 @@ CREATE TABLE `reminders` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rewards_catalog`
+--
+
+CREATE TABLE `rewards_catalog` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `point_cost` int(11) NOT NULL,
+  `reward_type` enum('coupon','virtual_item','direct_points_back') NOT NULL,
+  `linked_coupon_id` bigint(20) DEFAULT NULL,
+  `stock` int(11) NOT NULL,
+  `is_active_in_store` tinyint(1) NOT NULL DEFAULT 1,
+  `validity_days_after_claim` int(11) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -370,7 +458,10 @@ INSERT INTO `sugar_intake_records` (`id`, `user_id`, `food_id`, `quantity`, `dat
 (2, 4, 2, 1, '2025-06-01', '2025-05-31 21:26:58', '2025-05-31 21:26:58'),
 (3, 4, 1, 1, '2025-06-01', '2025-06-01 12:56:28', '2025-06-01 12:56:28'),
 (4, 4, 1, 1, '2025-06-02', '2025-06-01 19:23:38', '2025-06-01 19:23:38'),
-(5, 4, 2, 2, '2025-06-02', '2025-06-02 07:38:09', '2025-06-02 07:38:29');
+(5, 4, 2, 2, '2025-06-02', '2025-06-02 07:38:09', '2025-06-02 07:38:29'),
+(6, 4, 2, 7, '2025-06-05', '2025-06-04 21:56:58', '2025-06-05 04:36:08'),
+(7, 4, 1, 4, '2025-06-05', '2025-06-04 21:57:20', '2025-06-05 04:32:15'),
+(8, 4, 2, 1, '2025-06-14', '2025-06-14 02:12:38', '2025-06-14 02:12:38');
 
 -- --------------------------------------------------------
 
@@ -402,8 +493,27 @@ INSERT INTO `users` (`id`, `role`, `name`, `email`, `province`, `city`, `passwor
 (2, 'user', 'Budi Santoso', 'budi.santoso@example.com', 'Jawa Timur', 'Malang', '$2b$12$L8SLHHInhoX84lRc5RCtXepx9/AVlynvxXZFd2mQs7RXuBRQxdvia', '2025-05-20 00:54:20', '2025-05-20 00:54:20', 'email', '', '2025-05-24 01:53:44'),
 (3, 'user', 'John Doe', 'johndoe@example.com', 'Jawa Timur', 'Malang', '$2b$12$REKCOcYTCvFv7RhBhu2GquefOZ7cFJw38trjSTKbqnKnBIZLXFwpy', '2025-05-24 01:50:33', '2025-05-24 01:50:33', 'email', '', '2025-05-24 01:53:25'),
 (4, 'user', 'Fxepher', 'fotoxepher@gmail.com', 'Jawa Timur', 'Malang', '$2b$12$8cmTyr6imBuIby0GOXwYoO3rVADgvan.7GwKkCsNp7p.LE5//3Taa', '2025-05-26 22:26:16', '2025-05-26 22:43:46', 'email', '', '2025-05-26 22:34:38'),
-(5, 'doctor', 'Rudi', 'rudi@gmail.com', 'jakarta', 'jakarta', 'thisisrudi', '2025-05-29 21:08:26', '2025-05-29 21:08:26', 'email', '', '2025-05-29 21:08:26'),
-(6, 'user', 'safer', 'gameplaysafer@gmail.com', 'Jatim', 'malang', '$2b$12$ztPyR4Ajvfg.jlIWP7Jwy.TDJ9eQmOKqpwTB8LDJ18iAAxS3Z4YAq', '2025-05-30 18:18:17', '2025-05-30 18:18:17', 'email', 'gKCpkYtkZlMejGdoMBN4q', '2025-05-30 18:18:17');
+(6, 'user', 'safer', 'gameplaysafer@gmail.com', 'Jatim', 'malang', '$2b$12$ztPyR4Ajvfg.jlIWP7Jwy.TDJ9eQmOKqpwTB8LDJ18iAAxS3Z4YAq', '2025-05-30 18:18:17', '2025-05-30 18:18:17', 'email', 'gKCpkYtkZlMejGdoMBN4q', '2025-05-30 18:18:17'),
+(7, 'doctor', 'Rudi', 'rudi@gmail.com', 'Jawa Timur', 'Malang', 'rudibotak', '2025-06-14 03:44:53', '2025-06-14 03:44:53', 'email', '', '2025-06-14 03:44:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_claimed_rewards`
+--
+
+CREATE TABLE `user_claimed_rewards` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `reward_catalog_id` bigint(20) NOT NULL,
+  `claimed_coupon_id` bigint(20) DEFAULT NULL,
+  `coupon_code_instance` varchar(50) DEFAULT NULL,
+  `claimed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `point_transaction_id` bigint(20) NOT NULL,
+  `status` enum('active','used','expired') NOT NULL,
+  `instance_expired_at` timestamp NULL DEFAULT NULL,
+  `used_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -429,7 +539,6 @@ CREATE TABLE `user_mission_records` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `mission_id` bigint(20) NOT NULL,
-  `date` date NOT NULL,
   `status` enum('in_progress','completed','failed') NOT NULL DEFAULT 'in_progress',
   `reward_claimed` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -452,6 +561,13 @@ CREATE TABLE `user_points` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `user_points`
+--
+
+INSERT INTO `user_points` (`id`, `user_id`, `total_points`, `updated_at`) VALUES
+(1, 4, 300, '2025-06-04 11:46:26');
+
 -- --------------------------------------------------------
 
 --
@@ -469,6 +585,17 @@ CREATE TABLE `user_premium_subscriptions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_premium_subscriptions`
+--
+
+INSERT INTO `user_premium_subscriptions` (`id`, `user_id`, `package_id`, `transaction_id`, `start_date`, `end_date`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 4, 1, 1, '2025-06-04', '2025-06-04', 0, '2025-06-04 15:12:35', '2025-06-04 15:13:25'),
+(2, 4, 1, 2, '2025-06-05', '2025-07-05', 0, '2025-06-04 19:41:01', '2025-06-05 04:08:40'),
+(3, 4, 1, 3, '2025-06-05', '2025-07-05', 0, '2025-06-05 04:08:40', '2025-06-05 04:09:07'),
+(4, 4, 2, 4, '2025-06-05', '2026-06-05', 0, '2025-06-05 04:09:07', '2025-06-05 04:11:36'),
+(5, 4, 1, 5, '2025-06-05', '2025-07-05', 1, '2025-06-05 04:11:36', '2025-06-05 04:11:36');
 
 -- --------------------------------------------------------
 
@@ -488,6 +615,17 @@ CREATE TABLE `user_premium_transactions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_premium_transactions`
+--
+
+INSERT INTO `user_premium_transactions` (`id`, `user_id`, `package_id`, `transaction_amount`, `transaction_date`, `payment_method`, `payment_status`, `payment_reference`, `created_at`, `updated_at`) VALUES
+(1, 4, 1, 30000, '2025-06-04 15:12:35', 'bypassed', 'completed', 'BYPASS_SYSTEM', '2025-06-04 15:12:35', '2025-06-04 15:12:35'),
+(2, 4, 1, 30000, '2025-06-04 19:41:01', 'bypassed', 'completed', 'BYPASS_SYSTEM', '2025-06-04 19:41:01', '2025-06-04 19:41:01'),
+(3, 4, 1, 30000, '2025-06-05 04:08:40', 'bypassed', 'completed', 'BYPASS_SYSTEM', '2025-06-05 04:08:40', '2025-06-05 04:08:40'),
+(4, 4, 2, 300000, '2025-06-05 04:09:07', 'bypassed', 'completed', 'BYPASS_SYSTEM', '2025-06-05 04:09:07', '2025-06-05 04:09:07'),
+(5, 4, 1, 30000, '2025-06-05 04:11:36', 'bypassed', 'completed', 'BYPASS_SYSTEM', '2025-06-05 04:11:36', '2025-06-05 04:11:36');
 
 -- --------------------------------------------------------
 
@@ -520,24 +658,6 @@ INSERT INTO `user_profiles` (`id`, `user_id`, `gender`, `age`, `weight`, `height
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_rewards`
---
-
-CREATE TABLE `user_rewards` (
-  `id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
-  `reward_type` enum('discount','voucher') NOT NULL,
-  `reward_value` varchar(255) NOT NULL,
-  `claimed_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `expired_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `user_point_transaction_id` bigint(20) DEFAULT NULL,
-  `is_redeemed` tinyint(1) DEFAULT 0,
-  `redeemed_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `weekly_reports`
 --
 
@@ -563,7 +683,13 @@ INSERT INTO `weekly_reports` (`id`, `user_id`, `week_start_date`, `week_end_date
 (2, 4, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"Tidak ada data asupan gula yang tercatat minggu ini.\",\"saran\":[\"Mulai mencatat asupan makanan harian\",\"Perhatikan kandungan gula dalam makanan\",\"Konsultasikan pola makan dengan ahli gizi\"],\"peringatan\":null}', '{\"kesimpulan\":\"Terjadi kesalahan dalam menganalisis data gula darah.\",\"saran\":[\"Konsultasikan dengan dokter untuk evaluasi lebih lanjut\"],\"peringatan\":\"Selalu konsultasikan hasil dengan tenaga medis profesional\"}', '', '', '2025-06-03 20:29:24', '2025-06-03 20:29:24'),
 (3, 4, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"Tidak ada data asupan gula yang tercatat minggu ini.\",\"saran\":[\"Mulai mencatat asupan makanan harian\",\"Perhatikan kandungan gula dalam makanan\",\"Konsultasikan pola makan dengan ahli gizi\"],\"peringatan\":null}', '{\"kesimpulan\":\"Terjadi kesalahan dalam menganalisis data gula darah.\",\"saran\":[\"Konsultasikan dengan dokter untuk evaluasi lebih lanjut\"],\"peringatan\":\"Selalu konsultasikan hasil dengan tenaga medis profesional\"}', '', '', '2025-06-03 20:35:42', '2025-06-03 20:35:42'),
 (4, 4, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"Tidak ada data asupan gula yang tercatat minggu ini.\",\"saran\":[\"Mulai mencatat asupan makanan harian\",\"Perhatikan kandungan gula dalam makanan\",\"Konsultasikan pola makan dengan ahli gizi\"],\"peringatan\":null}', '{\"kesimpulan\":\"Terjadi kesalahan dalam menganalisis data gula darah.\",\"saran\":[\"Konsultasikan dengan dokter untuk evaluasi lebih lanjut\"],\"peringatan\":\"Selalu konsultasikan hasil dengan tenaga medis profesional\"}', '', '', '2025-06-03 20:49:46', '2025-06-03 20:49:46'),
-(5, 1, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '', '', '2025-06-03 22:10:00', '2025-06-03 22:10:00');
+(5, 1, '2025-05-25', '2025-05-31', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '', '', '2025-06-03 22:10:00', '2025-06-03 22:10:00'),
+(6, 4, '2025-05-26', '2025-06-01', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '{\"kesimpulan\":\"AI under construction\",\"saran\":[\"AI under construction\"],\"peringatan\":\"AI under construction\"}', '', '', '2025-06-04 07:02:07', '2025-06-04 07:02:07'),
+(7, 4, '2025-06-02', '2025-06-08', 'AI under construction', 'AI under construction', 'AI under construction', 'AI under construction', '2025-06-14 02:17:27', '2025-06-14 02:17:27'),
+(8, 1, '2025-06-02', '2025-06-08', 'AI under construction', 'AI under construction', 'AI under construction', 'AI under construction', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(9, 2, '2025-06-02', '2025-06-08', 'AI under construction', 'AI under construction', 'AI under construction', 'AI under construction', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(10, 3, '2025-06-02', '2025-06-08', 'AI under construction', 'AI under construction', 'AI under construction', 'AI under construction', '2025-06-14 02:58:00', '2025-06-14 02:58:00'),
+(11, 6, '2025-06-02', '2025-06-08', 'AI under construction', 'AI under construction', 'AI under construction', 'AI under construction', '2025-06-14 02:58:00', '2025-06-14 02:58:00');
 
 --
 -- Indexes for dumped tables
@@ -670,6 +796,13 @@ ALTER TABLE `reminders`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `rewards_catalog`
+--
+ALTER TABLE `rewards_catalog`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `linked_coupon_id` (`linked_coupon_id`);
+
+--
 -- Indexes for table `sugar_intake_records`
 --
 ALTER TABLE `sugar_intake_records`
@@ -682,6 +815,16 @@ ALTER TABLE `sugar_intake_records`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_claimed_rewards`
+--
+ALTER TABLE `user_claimed_rewards`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `reward_catalog_id` (`reward_catalog_id`),
+  ADD KEY `claimed_coupon_id` (`claimed_coupon_id`),
+  ADD KEY `point_transaction_id` (`point_transaction_id`);
 
 --
 -- Indexes for table `user_coupons`
@@ -730,14 +873,6 @@ ALTER TABLE `user_profiles`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `user_rewards`
---
-ALTER TABLE `user_rewards`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `user_point_transaction_id` (`user_point_transaction_id`);
-
---
 -- Indexes for table `weekly_reports`
 --
 ALTER TABLE `weekly_reports`
@@ -758,7 +893,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `blood_sugar_records`
 --
 ALTER TABLE `blood_sugar_records`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `consultation_bookings`
@@ -776,25 +911,25 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT for table `daily_health_metrics`
 --
 ALTER TABLE `daily_health_metrics`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `daily_missions`
 --
 ALTER TABLE `daily_missions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `doctor_profiles`
 --
 ALTER TABLE `doctor_profiles`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `doctor_schedules`
 --
 ALTER TABLE `doctor_schedules`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `foods`
@@ -824,13 +959,13 @@ ALTER TABLE `pemium_features`
 -- AUTO_INCREMENT for table `point_transactions`
 --
 ALTER TABLE `point_transactions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `premium_packacges`
 --
 ALTER TABLE `premium_packacges`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reminders`
@@ -839,16 +974,28 @@ ALTER TABLE `reminders`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `rewards_catalog`
+--
+ALTER TABLE `rewards_catalog`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `sugar_intake_records`
 --
 ALTER TABLE `sugar_intake_records`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `user_claimed_rewards`
+--
+ALTER TABLE `user_claimed_rewards`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_coupons`
@@ -866,19 +1013,19 @@ ALTER TABLE `user_mission_records`
 -- AUTO_INCREMENT for table `user_points`
 --
 ALTER TABLE `user_points`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_premium_subscriptions`
 --
 ALTER TABLE `user_premium_subscriptions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_premium_transactions`
 --
 ALTER TABLE `user_premium_transactions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_profiles`
@@ -887,16 +1034,10 @@ ALTER TABLE `user_profiles`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `user_rewards`
---
-ALTER TABLE `user_rewards`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `weekly_reports`
 --
 ALTER TABLE `weekly_reports`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -952,11 +1093,26 @@ ALTER TABLE `reminders`
   ADD CONSTRAINT `reminders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
+-- Constraints for table `rewards_catalog`
+--
+ALTER TABLE `rewards_catalog`
+  ADD CONSTRAINT `rewards_catalog_ibfk_1` FOREIGN KEY (`linked_coupon_id`) REFERENCES `coupons` (`id`);
+
+--
 -- Constraints for table `sugar_intake_records`
 --
 ALTER TABLE `sugar_intake_records`
   ADD CONSTRAINT `sugar_intake_records_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `sugar_intake_records_ibfk_2` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`);
+
+--
+-- Constraints for table `user_claimed_rewards`
+--
+ALTER TABLE `user_claimed_rewards`
+  ADD CONSTRAINT `user_claimed_rewards_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `user_claimed_rewards_ibfk_2` FOREIGN KEY (`reward_catalog_id`) REFERENCES `rewards_catalog` (`id`),
+  ADD CONSTRAINT `user_claimed_rewards_ibfk_3` FOREIGN KEY (`claimed_coupon_id`) REFERENCES `coupons` (`id`),
+  ADD CONSTRAINT `user_claimed_rewards_ibfk_4` FOREIGN KEY (`point_transaction_id`) REFERENCES `point_transactions` (`id`);
 
 --
 -- Constraints for table `user_coupons`
@@ -997,13 +1153,6 @@ ALTER TABLE `user_premium_transactions`
 --
 ALTER TABLE `user_profiles`
   ADD CONSTRAINT `user_profiles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_rewards`
---
-ALTER TABLE `user_rewards`
-  ADD CONSTRAINT `user_rewards_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `user_rewards_ibfk_2` FOREIGN KEY (`user_point_transaction_id`) REFERENCES `point_transactions` (`id`);
 
 --
 -- Constraints for table `weekly_reports`
